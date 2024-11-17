@@ -1,43 +1,51 @@
+#make tree
+#insert into tree
+#find stuff in tree
+
 class Node:
     def __init__(self, data):
         self.data = data
-        self.leftChild = None
-        self.rightChild = None
+        self.right = None
+        self.left = None
 
     def insert(self, data):
         if data < self.data:
-            if self.leftChild:
-                self.leftChild.insert(data)
-            else:
-                self.leftChild = Node(data)
+            if self.left is None: #doesn't point to another node
+                self.left = Node(data)
                 return
-        else:
-            if self.rightChild:
-                self.rightChild.insert(data)
             else:
-                self.rightChild = Node(data)
+                self.left.insert(data)
+        elif data > self.data:
+            if self.right is None: #doesn't point to another node
+                self.right = Node(data)
                 return
+            else:
+                self.right.insert(data)
 
     def search(self, value):
         if value == self.data:
-            return f"{value} was found in the BST"
+            return str(value)+" was found in the BST"
         elif value < self.data:
-            if self.leftChild:
-                return self.leftChild.search(value)
+            if self.left: #is not None (i.e. node points to another node)
+                return self.left.search(value)
             else:
-                return f"{value} was not found in the BST"
-        else:
-            if self.rightChild:
-                return self.rightChild.search(value)
+                return str(value)+" was not found in the BST"
+        elif value > self.data:
+            if self.right: #is not None (i.e. node points to another node)
+                return self.right.search(value)
             else:
-                return f"{value} was not found in the BST"
+                return str(value)+" was not found in the BST"
 
-    def printtree(self):
-        if self.leftChild:
-            self.leftChild.printtree()
-        print(self.data),
-        if self.rightChild:
-            self.rightChild.printtree()
+
+    def PrintTree(self):
+        if self.left: #is not None (i.e. node points to another node)
+            self.left.PrintTree()
+        print(self.data)
+        if self.right: #is not None (i.e. node points to another node)
+            self.right.PrintTree()
+
+
+
 
 root = Node(27)
 root.insert(14)
@@ -45,6 +53,7 @@ root.insert(35)
 root.insert(31)
 root.insert(10)
 root.insert(19)
-root.printtree()
-print(root.search(7))
-print(root.search(14))
+root.PrintTree()
+print(root.search(19))
+print(root.search(69))
+
