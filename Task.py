@@ -19,7 +19,7 @@ class Node:
     def RightPointerSetter(self, NewPointer):
         self.__RightPointer = NewPointer
 
-BinaryTreeArray = [Node(-1, -1, -1) for i in range(20)] # Array of type Node - initialise with blanks
+BinaryTreeArray = [Node(-1, -1, -1) for i in range(12)] # Array of type Node - initialise with blanks
 NextNode = -1
 
 def CreateTree(NodeData):
@@ -59,3 +59,13 @@ AttachLeft("Pink", 7)
 AttachLeft("Grey", 9)
 AttachRight("Orange", 9)
 printLeftTree()
+
+def Traverse_leafs(node_index):
+    if BinaryTreeArray[node_index].LeftPointerGetter() != -1:  # is not None (i.e. node points to another node)
+        Traverse_leafs(BinaryTreeArray[node_index].LeftPointerGetter())
+    if BinaryTreeArray[node_index].LeftPointerGetter() == -1 and BinaryTreeArray[node_index].RightPointerGetter() == -1:
+        print(BinaryTreeArray[node_index].DataValueGetter())
+    if BinaryTreeArray[node_index].RightPointerGetter() != -1:  # is not None (i.e. node points to another node)
+        Traverse_leafs(BinaryTreeArray[node_index].RightPointerGetter())
+
+Traverse_leafs(0)
